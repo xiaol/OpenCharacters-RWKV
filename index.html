@@ -4346,12 +4346,12 @@
         }
 
         let postReminderMessageContent;
-        if(replyingCharacterName !== threadCharacterName || new Set(messagesArr.map(m => m.name)).size > 2) {
-          postReminderMessageContent = `The next message will be written by ${replyingCharacterName}.`;
-        }
-        if(replyInstruction) {
-          postReminderMessageContent += ` The next message should be written according to this instruction: ${replyInstruction}.`;
-        }
+        // if(replyingCharacterName !== threadCharacterName || new Set(messagesArr.map(m => m.name)).size > 2) {
+        //   postReminderMessageContent = `The next message will be written by ${replyingCharacterName}.`;
+        // }
+        // if(replyInstruction) {
+        //   postReminderMessageContent += ` The next message should be written according to this instruction: ${replyInstruction}.`;
+        // }
         if(postReminderMessageContent) {
           messagesArr.push({role:"system", content:"("+postReminderMessageContent+")"});
         }
