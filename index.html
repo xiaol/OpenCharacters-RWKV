@@ -3244,7 +3244,7 @@
         let modelObj = availableModels[modelName];
 
         // TODO: get actual GPT-4 tokenizer
-        if(modelName.startsWith("gpt-3.5-turbo") || modelName.startsWith("text-davinci-003") || modelName.startsWith("gpt-4")) {
+        if(modelName.startsWith("rwkv-world-7b") || modelName.startsWith("text-davinci-003") || modelName.startsWith("gpt-4")) {
           if(!gpt3Tokenizer) gpt3Tokenizer = createGpt3Tokenizer();
           modelNameToTokenizerCache[modelName] = gpt3Tokenizer;
           return gpt3Tokenizer;
