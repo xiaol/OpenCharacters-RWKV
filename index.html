@@ -4834,7 +4834,7 @@
             if(response) { // <-- e.g. request was aborted by user
               const reader = response.body?.pipeThrough(new TextDecoderStream()).getReader();
               await handleStreamingResponse(reader).catch(e => {  // this appends chunks to the `result` variable
-                if(!signals.stop) alert("getBotReply > modelType:chat > handleStreamingResponse:\n\n"+e.stack);
+                // if(!signals.stop) alert("getBotReply > modelType:chat > handleStreamingResponse:\n\n"+e.stack);
               });
               apiTokenUsage.completion += await countTokens(result, modelName);
               apiTokenUsage.total += await countTokens(result, modelName);
