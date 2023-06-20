@@ -3074,9 +3074,9 @@
         let thread = await db.threads.get(threadId);
         let threadElements = [...$.chatThreads.querySelectorAll(".thread")];
         if(!thread.isFav) threadElements = threadElements.filter(el => el.querySelector(".favStar").dataset.isFav==="false");
-        if(threadElements[0].dataset.threadId !== threadId.toString()) {
-          await renderThreadList();
-        }
+        // if(threadElements[0].dataset.threadId !== threadId.toString()) {
+        await renderThreadList();
+        // }
 
         return id;
       }
