@@ -2096,7 +2096,7 @@
               url: "https://i.imgur.com/Gxt0kRX.jpg",
             },
             fitMessagesInContextMethod: "summarizeOld",
-            temperature: 0.7,
+            temperature: 1.5,
             customCode: "",
           },
           {
@@ -2111,7 +2111,7 @@
               url: "https://i.imgur.com/bHN0oiq.jpg",
             },
             fitMessagesInContextMethod: "summarizeOld",
-            temperature: 0.7,
+            temperature: 1.5,
             customCode: "",
           },
           {
@@ -2126,7 +2126,7 @@
               url: "https://i.imgur.com/kb7Tzf8.jpg",
             },
             fitMessagesInContextMethod: "summarizeOld",
-            temperature: 0.7,
+            temperature: 1.5,
             customCode: "",
           },
           {
@@ -2166,7 +2166,7 @@
               url: "https://i.imgur.com/pweR8nT.jpg",
             },
             fitMessagesInContextMethod: "summarizeOld",
-            temperature: 0.7,
+            temperature: 1.5,
             customCode: "",
           },
           {
@@ -2209,7 +2209,7 @@
               url: "https://i.imgur.com/EGDfzaN.jpeg",
             },
             fitMessagesInContextMethod: "summarizeOld",
-            temperature: 0.7,
+            temperature: 1.5,
             customCode: dedent(`
               // Note: You can add multiple URLs for a single label and a random one will be selected.
               // Separate urls with "|" like this:
@@ -3420,7 +3420,7 @@
               } else {
                 messages.push({role: "user", content: `Please respond with a summary of the following text:\n\n------\n\n${chunk}${textChunks.length > 1 ? "..." : ""}\n\n------\n\nYour response should start with "NEW TEXT:" and should be a bit shorter. Make sure to include ALL important details in the summary. The summary MUST NOT be short. It must be a LONG, HIGHLY-DETAILED summary.`});
               }
-              resultText = await getChatCompletion({messages, modelName, temperature:0.7, threadId});
+              resultText = await getChatCompletion({messages, modelName, temperature:1.5, threadId});
               resultText = resultText.trim().replace(/^NEW TEXT: ?/, "").trim();
             } else {
               if(compressionStep < 2) { 
@@ -3428,7 +3428,7 @@
               } else {
                 messages.push({role: "user", content: `I'm rewriting/summarizing a document to make it a bit shorter. Below is my work so far.\n\nSO FAR: ${newText}\n\n-----\n\nHere's what I need to add to the "SO FAR" next:\n\nNEXT PART: [...] ${chunk}${textChunks.length > chunkI+1 ? "..." : ""}\n\n-----\n\nPlease continue the "SO FAR" text by adding a summarized version of the "NEXT PART" section to the end of it. Just respond with the newly-extended "SO FAR" section - nothing else. Your response should start with "SO FAR:" and add a summarized version of the "NEXT PART" text to the end of it. Make sure to include ALL important details in the new "SO FAR:" section - it should be LONGER than the existing one.`});
               }
-              resultText = await getChatCompletion({messages, modelName, temperature:0.7, threadId});
+              resultText = await getChatCompletion({messages, modelName, temperature:1.5, threadId});
               resultText = resultText.trim().replace(/^SO FAR: ?/, "").trim();
             }
             newText = resultText;
@@ -3725,7 +3725,7 @@
                     {role: "user", content: messageBatchSummarizationInstruction},
                   ],
                   modelName,
-                  temperature: 0.7,
+                  temperature: 1.5,
                   threadId, // just used to track token usage
                 });
                 if(result) break;
@@ -4390,7 +4390,7 @@
               {role:"user", content: `You are tasked with writing the next message on behalf of ${replyingCharacterName}. However, there is a large database of memories/lore/facts/etc. which you'll need to use to make sure your reply makes sense, and doesn't contradict established facts/lore/memories. Respond with a list of keyphrases that you would like to use to search the database for useful information. Try to surface facts that are relevant to ${replyingCharacterName}'s *very next* message - rephrase/reword keyphrases multiple times if needed. Look for specific entities/things/claims/topics/people/places/questions/etc. in the previous message (the one ending with "...${mostRecentMessage.content.slice(-100)}" and the ones before that) that may be important. Write several rephrasings of important queries. Try to search the database for things you don't know, but which might be important for writing a reply that doesn't contradict established world lore/facts/etc. Reply with this template:\n\nMEMORY SEARCH KEYPHRASES:\n- <keyphrase 1>\n- <keyphrase 2>\n- ...`},
             ],
             modelName,
-            temperature: 0.7,
+            temperature: 1.5,
             threadId, // just used to track token usage
             signals,
           });
@@ -4799,7 +4799,7 @@
           let data = {
             model: modelName,
             messages: messagesArr,
-            temperature: replyingCharacter.temperature ?? 0.7,
+            temperature: replyingCharacter.temperature ?? 1.5,
           };
           if(replyingCharacter.topP) data.top_p = replyingCharacter.topP;
           if(replyingCharacter.frequencyPenalty) data.frequency_penalty = replyingCharacter.frequencyPenalty;
@@ -4878,7 +4878,7 @@
           let data = {
             model: modelName,
             prompt,
-            temperature: replyingCharacter.temperature ?? 0.7,
+            temperature: replyingCharacter.temperature ?? 1.5,
             stop: [`\n\n[[`],
             max_tokens,  // see note above
           };
@@ -5035,7 +5035,7 @@
           let data = {
             model:modelName,
             messages,
-            temperature: temperature ?? 0.7,
+            temperature: temperature ?? 1.5,
           };
           if(stopSequences) data.stop = stopSequences;
           if(topP) data.top_p = topP;
@@ -5078,7 +5078,7 @@
           let data = {
             model:modelName,
             prompt: messagesFinal.map(m => `[[${m.name}]]: ${m.content}`).join("\n\n") + `\n\n[[${aiName}]]: `,
-            temperature: temperature ?? 0.7,
+            temperature: temperature ?? 1.5,
             stop: [`\n\n[[`],
           };
           if(stopSequences) data.stop.push(...stopSequences);
@@ -5312,7 +5312,7 @@
             {role: "system", content: "You are an expert chat thread naming assistant. You help the user come up with a very short name that succinctly summarizes a text chat."},
             {role: "user", content: `Here are some logs from a text chat:\n\n---\n\n${preparedMessages.map(m => `[[${m.name}]]: ${m.content}`).join("\n\n")}\n\n---\n\nPlease come up with a very short name for this thread (just a few words) that succinctly summarizes the chat. You MUST reply with this exact template:\n\nSUMMARY: <a couple of sentences describing the chat thread>\nSHORT NAME: <proposed name of the thread - only a few words>`},
           ];
-          let response = await getChatCompletion({messages:chatCompletionMessages, modelName, temperature:0.7, threadId});
+          let response = await getChatCompletion({messages:chatCompletionMessages, modelName, temperature:1.5, threadId});
           let newName = response.match(/\nSHORT NAME: (.*)/)?.[1]?.slice(0, 50);
           if(newName?.trim()) {
             await db.threads.update(threadId, { name: newName });
